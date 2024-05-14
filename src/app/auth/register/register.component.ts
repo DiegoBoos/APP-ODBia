@@ -32,7 +32,7 @@ declare var google: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class RegisterComponent {
-  private readonly CLIENT_ID: string = environment.CLIENT_ID;
+
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -41,10 +41,10 @@ export default class RegisterComponent {
   private validatorsService = inject(ValidatorsService);
 
   ngAfterViewInit(): void {
-    google.accounts.id.initialize({
-      client_id: this.CLIENT_ID,
-      callback: (resp: any) => this.loginWithGoogle(resp),
-    });
+    // google.accounts.id.initialize({
+    //   client_id: this.CLIENT_ID,
+    //   callback: (resp: any) => this.loginWithGoogle(resp),
+    // });
     google.accounts.id.renderButton(document.getElementById('google-btn'), {
       theme: 'outline',
       size: 'large',

@@ -10,6 +10,7 @@ import { CheckTokenResponse } from '../interfaces/check-token.response';
 import Swal from 'sweetalert2';
 import { environment } from '@environment/environment';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,6 +18,7 @@ export class AuthService {
   private readonly baseUrl: string = environment.baseUrl;
   private http = inject(HttpClient);
   private router = inject(Router);
+
   // private websocketService = inject(WebsocketService);
 
   #currentUser = signal<User | null>(null);
@@ -27,7 +29,10 @@ export class AuthService {
 
   constructor() {
     this.checkAuthStatus().subscribe();
+
   }
+
+  
 
   private setAuthentication(user: User, token: string): boolean {
     this.#currentUser.set(user);
@@ -176,12 +181,37 @@ export class AuthService {
     // this.websocketService.emit(EventSocket.LOGOUT, token);
   }
 
-  loginWithGoogle(): Observable<boolean> {
-    const url = `${this.baseUrl}/auth/google/login`;
+  loginWithGoogle(token: string): Observable<any> {
+    return this.http.post('http://localhost:8000/auth/google/redirect', { token });
+    // this.oauthService.initImplicitFlow();
+    // const url = `${this.baseUrl}/auth/google/login`;
+    // console.log(url);
+    
 
-    return this.http.get<LoginResponse>(url).pipe(
-      map(({ user, token }) => this.setAuthentication(user, token)),
+    // return this.http.get<LoginResponse>(url, { observe: 'response' }).pipe(
+    //   map((resp) =>{ 
+    //     console.log(resp);
+    //     // const { user, token }= resp;
+    //     const user: any = null;
+    //     return this.setAuthentication(user, 'token')
+    //   }),
+    //   catchError((err) => throwError(() => err.error.message))
+    // );
+  }
+
+  
+
+  getUserProfile() {
+    const url = `${this.baseUrl}/auth/google/redirect`;
+    return this.http.get<LoginResponse>(url, { observe: 'response' }).pipe(
+      map((resp) =>{ 
+        console.log(resp);
+        // const { user, token }= resp;
+        const user: any = null;
+        return this.setAuthentication(user, 'token')
+      }),
       catchError((err) => throwError(() => err.error.message))
     );
+   
   }
 }

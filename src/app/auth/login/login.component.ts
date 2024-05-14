@@ -17,12 +17,14 @@ import { AuthService } from '../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from '@environment/environment';
-declare var google: any;
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, GoogleSigninButtonModule],
   templateUrl: './login.component.html',
   styles: `
     :host {
@@ -31,8 +33,10 @@ declare var google: any;
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class LoginComponent {
-  private readonly CLIENT_ID: string = environment.CLIENT_ID;
+export default class LoginComponent implements OnInit {
+  user: SocialUser | null = null;
+  loggedIn: boolean | null = null;
+
 
   /* ngAfterViewInit(): void {
     google.accounts.id.initialize({
@@ -47,10 +51,18 @@ export default class LoginComponent {
     });
   } */
 
+  ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
+  }
+
   private fb = inject(FormBuilder);
   private router = inject(Router);
 
   private authService = inject(AuthService);
+  private socialAuthService = inject(SocialAuthService);
 
   public form: FormGroup = this.fb.group({
     email: ['', [Validators.required]],
@@ -88,17 +100,28 @@ export default class LoginComponent {
   }
 
   loginWithGoogle() {
-    this.authService.loginWithGoogle().subscribe({
-      next: () => {
-        this.router.navigateByUrl('/dashboard');
-      },
-      error: (message) => {
-        Swal.fire('Error', message, 'error');
-      },
-    });
+    // window.location.href = 'http://localhost:8000/api/auth/google/login';
+    // this.authService.loginWithGoogle()
     /* if (resp) {
       const payload = this.decodeToken(resp.credential);
       console.log(payload);
     } */
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
+      this.authService.loginWithGoogle(user.idToken).subscribe((response) => {
+        console.log('Logged in', response);
+      });
+    });
   }
+
+  signInWithGoogle(): void {
+    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
+      console.log(user);
+      
+      this.authService.loginWithGoogle(user.idToken).subscribe((response) => {
+        console.log('Logged in', response);
+      });
+    });
+  }
+  
 }
