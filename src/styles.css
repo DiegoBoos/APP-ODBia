@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-primary {
+  background-color: #14A27F;
+}
+
+.hover\:bg-primary:hover {
+  background-color: #31ABA9;
+}
+
