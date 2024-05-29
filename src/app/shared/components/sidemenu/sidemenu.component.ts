@@ -10,11 +10,12 @@ import { routes } from '../../../app.routes';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { initFlowbite } from 'flowbite';
+import { SidebarMenuItemComponent } from '../sidebar-menu-item/sidebar-menu-item.component';
 
 @Component({
   selector: 'app-sidemenu',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule , SidebarMenuItemComponent],
   templateUrl: './sidemenu.component.html',
   styles: `
       :host {
@@ -29,25 +30,30 @@ export class SidemenuComponent implements OnInit {
 
   public currentUser = computed(() => this.authService.currentUser());
 
-  public menuItems = routes
-    .map((route) => route.children ?? [])
-    .flat()
-    .filter((route) => route && route.path)
-    .filter(
-      (route) =>
-        route.path !== 'login' &&
-        route.path !== 'upload-media' &&
-        route.path !== 'mi-buzon' &&
-        route.path !== 'mis-buzones' &&
-        route.path !== 'mis-radicaciones' &&
-        route.path !== 'radicar' &&
-        route.path !== 'legalizacion' &&
-        route.path !== 'legalizar' &&
-        route.path !== 'forgot-password'
-    )
-    .filter((route) => !route.path?.includes(':'));
-
-  constructor() {
+  
+  public routes = routes[1].children?.filter( (route) => route.data );
+  
+  // public menuItems = routes
+  //   .map((route) => route.children ?? [])
+  //   .flat()
+  //   .filter((route) => route && route.path)
+  //   .filter(
+    //     (route) =>
+      //       route.path !== 'login' &&
+    //       route.path !== 'upload-media' &&
+    //       route.path !== 'mi-buzon' &&
+    //       route.path !== 'mis-buzones' &&
+    //       route.path !== 'mis-radicaciones' &&
+    //       route.path !== 'radicar' &&
+    //       route.path !== 'legalizacion' &&
+    //       route.path !== 'legalizar' &&
+    //       route.path !== 'forgot-password'
+    //   )
+    //   .filter((route) => !route.path?.includes(':'));
+    
+    constructor() {
+    console.log(routes);
+    
     // const dashboardRoutes = routes
     // .map( route => route.children ?? [] )
     // .flat()

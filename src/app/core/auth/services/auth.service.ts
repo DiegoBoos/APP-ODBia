@@ -199,6 +199,7 @@ export class AuthService {
     this.socialAuthService.signOut();
     this.#currentUser.set(null);
     this.#authStatus.set(AuthStatus.notAuthenticated);
+    this.router.navigateByUrl('');
     // this.websocketService.emit(EventSocket.LOGOUT, token);
   }
 

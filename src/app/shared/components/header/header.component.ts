@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
     // // })
   }
   ngOnInit(): void {
-    // initFlowbite();
+    initFlowbite();
   }
 
   logOut() {

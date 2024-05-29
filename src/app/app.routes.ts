@@ -37,24 +37,29 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./core/auth/reset-password/reset-password.component'),
       },
-      {
-        path: 'app',
-        /* canMatch: [canMatchAuth], */
-        loadComponent: () => import('./shared/components/layout/layout.component'),
-        children: [
-          // {
-          //   path: 'landing',
-          //   title: 'Inicio',
-          //   loadComponent: () =>
-          //     import('./dashboard/pages/landing/landing.component'),
-          // },
-          // {
-          //   path: 'usage',
-          //   title: 'Usage',
-          //   loadComponent: () => import('./dashboard/pages/usage/usage.component'),
-          // },
-        ],
-      },
+      // {
+      //   path: 'app',
+      //   /* canMatch: [canMatchAuth], */
+      //   loadComponent: () => import('./shared/components/layout/layout.component'),
+      //   children: [
+      //     {
+      //       path: 'dashboard',
+      //       title: 'Inicio',
+      //       loadComponent: () =>
+      //         import('./business/dashboard/dashboard.component'),
+      //       data: {
+      //         icon: 'fa-solid fa-spell-check',
+      //         title: 'Dashboard',
+      //         description: 'Tablero',
+      //       },
+      //     },
+      //     // {
+      //     //   path: 'usage',
+      //     //   title: 'Usage',
+      //     //   loadComponent: () => import('./dashboard/pages/usage/usage.component'),
+      //     // },
+      //   ],
+      // },
       {
         path: '',
         redirectTo: 'info',
@@ -63,12 +68,34 @@ export const routes: Routes = [
     ],
   },
   
-  
-  // {
-  //   path: '',
-  //   redirectTo: '/dashboard',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: 'app',
+    /* canMatch: [canMatchAuth], */
+    loadComponent: () => import('./shared/components/layout/layout.component'),
+    children: [
+      {
+        path: 'dashboard',
+        title: 'Inicio',
+        loadComponent: () =>
+          import('./business/dashboard/dashboard.component'),
+        data: {
+          icon: 'fa-solid fa-spell-check',
+          title: 'Dashboard',
+          description: 'Tablero',
+        },
+      },
+      // {
+      //   path: 'usage',
+      //   title: 'Usage',
+      //   loadComponent: () => import('./dashboard/pages/usage/usage.component'),
+      // },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+    ],
+  },
 
   {
     path: '**',

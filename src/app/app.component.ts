@@ -30,13 +30,13 @@ export class AppComponent {
 
   constructor() {
     effect(() => {
-      console.log(this.authService.authStatus());
+
       switch (this.authService.authStatus()) {
 
         case AuthStatus.authenticated: 
         case AuthStatus.inLogin:
 
-          this.router.navigateByUrl('/app');
+          this.router.navigateByUrl('app');
           
           return;
           

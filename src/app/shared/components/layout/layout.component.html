@@ -1,9 +1,30 @@
 <div class="min-h-screen bg-gray-50/50">
+  <nav class="w-full bg-blue-600 text-white px-20 py-2">
+    <app-header />
+  </nav>
   <app-sidemenu />
-  <div class="xl:ml-80">
-    <div class="">
+  <div class="p-4 xl:ml-80">
+   
       <router-outlet />
-    </div>
+ 
 
   </div>
+  <footer class="w-full">
+    <app-footer />
+  </footer>
 </div>
+
+
+
+<!-- <div class="min-h-screen bg-gray-50/50">
+  <nav class="w-full bg-blue-600 text-white px-20 py-2">
+    <app-header />
+  </nav>
+  
+  <app-sidemenu />
+  <router-outlet />
+ 
+  <footer class="w-full">
+    <app-footer />
+  </footer>
+</div> -->
