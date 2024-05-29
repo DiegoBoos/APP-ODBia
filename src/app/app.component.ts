@@ -2,8 +2,8 @@ import { Component, computed, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { BlockUI, BlockUIModule, NgBlockUI } from 'ng-block-ui';
-import { AuthStatus } from './auth/interfaces/auth-status.enum';
-import { AuthService } from './auth/services/auth.service';
+import { AuthStatus } from './core/auth/interfaces/auth-status.enum';
+import { AuthService } from './core/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -30,44 +30,21 @@ export class AppComponent {
 
   constructor() {
     effect(() => {
+      console.log(this.authService.authStatus());
       switch (this.authService.authStatus()) {
-        case AuthStatus.checking:
+
+        case AuthStatus.authenticated: 
+        case AuthStatus.inLogin:
+
+          this.router.navigateByUrl('/app');
+          
+          return;
+          
+        default:
+
+          this.router.navigateByUrl('');
           return;
 
-        case AuthStatus.authenticated:
-          const route = localStorage.getItem('route') || undefined;
-
-          if (!route) this.router.navigateByUrl('/dashboard');
-          else this.router.navigateByUrl(route);
-
-          return;
-
-        case AuthStatus.notAuthenticated:
-          if (
-            this.router.getCurrentNavigation()?.extractedUrl.root.children[
-              'primary'
-            ]
-          ) {
-            if (
-              this.router.getCurrentNavigation()?.extractedUrl.root.children[
-                'primary'
-              ].segments[1]
-            ) {
-              const subPath =
-                this.router.getCurrentNavigation()?.extractedUrl.root.children[
-                  'primary'
-                ].segments[1].path;
-              if (subPath !== 'reset-password') {
-                this.router.navigateByUrl('/auth/login');
-              }
-            } else {
-              this.router.navigateByUrl('/auth/login');
-            }
-          } else {
-            this.router.navigateByUrl('/auth/login');
-          }
-
-          return;
       }
     });
   }

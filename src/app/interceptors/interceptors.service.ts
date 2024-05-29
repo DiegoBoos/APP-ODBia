@@ -8,8 +8,9 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { AuthService } from '../auth/services/auth.service';
-import { ErrorMagement } from '../shared/helpers/error-management.helper';
+import { AuthService } from '../core/auth/services/auth.service';
+import { ErrorMagement } from '@shared/helpers/error-management.helper';
+
 
 @Injectable({ providedIn: 'root' })
 export class InterceptorService implements HttpInterceptor {

@@ -1,0 +1,107 @@
+<div class="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+  <div class="flex items-center">
+    @if (!currentUser()) {
+    <a routerLink="/info">
+      <h6 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-relaxed text-white">ODBai
+      </h6>
+
+    </a>
+    } @else {
+    <a routerLink="/app">
+      <h6 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-relaxed text-white">ODBai
+      </h6>
+
+    </a>
+    }
+
+
+    <nav aria-label="breadcrumb" class="w-max px-10">
+      <ol class="flex flex-wrap items-center w-full bg-opacity-60 rounded-md bg-transparent p-0 transition-all">
+        <li
+          class="flex items-center text-blue-100 antialiased font-sans text-xl font-semibold leading-normal cursor-pointer transition-colors duration-300 hover:text-white">
+          <a routerLink="/pricing">
+            <p>PRICING</p>
+
+          </a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <div class="flex items-center">
+
+    @if (!currentUser()) {
+    <a routerLink="/login">
+      <button
+        class="middle none font-sans font-bold center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-lg py-3 rounded-lg text-whie hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 hidden items-center gap-1 px-4 xl:flex"
+        type="button">
+        Sign In
+      </button>
+
+
+    </a>
+    <a routerLink="/register">
+      <button
+        class="middle none font-sans font-bold center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-lg py-3 rounded-lg text-whie hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 hidden items-center gap-1 px-4 xl:flex"
+        type="button">
+        Sign Up
+      </button>
+
+
+    </a>
+
+    } @else {
+
+      
+      
+      <button id="dropdownBottomButton" data-dropdown-toggle="dropdownBottom" data-dropdown-placement="bottom" class="me-3 mb-3 md:mb-0 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        @if (currentUser()?.authProvider === 'google') {
+          <svg class="w-6 h-6 text-gray-200 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M12.037 21.998a10.313 10.313 0 0 1-7.168-3.049 9.888 9.888 0 0 1-2.868-7.118 9.947 9.947 0 0 1 3.064-6.949A10.37 10.37 0 0 1 12.212 2h.176a9.935 9.935 0 0 1 6.614 2.564L16.457 6.88a6.187 6.187 0 0 0-4.131-1.566 6.9 6.9 0 0 0-4.794 1.913 6.618 6.618 0 0 0-2.045 4.657 6.608 6.608 0 0 0 1.882 4.723 6.891 6.891 0 0 0 4.725 2.07h.143c1.41.072 2.8-.354 3.917-1.2a5.77 5.77 0 0 0 2.172-3.41l.043-.117H12.22v-3.41h9.678c.075.617.109 1.238.1 1.859-.099 5.741-4.017 9.6-9.746 9.6l-.215-.002Z" clip-rule="evenodd"/>
+          </svg>
+        }
+        <p class="pl-2">
+          {{currentUser()?.email}} 
+
+        </p>
+        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+        </button>
+        
+        <!-- Dropdown menu -->
+        <div id="dropdownBottom" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBottomButton">
+              <li>
+                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M11 19l-7-7 7-7m6 14l7-7-7-7" />
+                  </svg>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M9.75 6.75h4.5v10.5h-4.5v-10.5zM12 1.5l5.196 3v5.25H6.804v-5.25L12 1.5z" />
+                  </svg>
+                  Settings
+                </a>
+              </li>
+              
+              <li>
+                <a (click)="logOut()" class="flex items-center cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 4.5l7 7-7 7M4.5 12h15" />
+                  </svg>
+                  Sign out
+                </a>
+              </li>
+            </ul>
+        </div>
+    }
+
+
+
+
+  </div>
+</div>
