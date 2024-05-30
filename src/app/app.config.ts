@@ -6,11 +6,12 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS,provideHttpClient, withFetch } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
 import { InterceptorService } from './interceptors/interceptors.service';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+
 import { environment } from '@environment/environment';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 
 export const appConfig: ApplicationConfig = {
@@ -23,8 +24,9 @@ export const appConfig: ApplicationConfig = {
       })
     ),
 
+    provideHttpClient(withFetch()),
+
     importProvidersFrom(
-      HttpClientModule,
       // SocketIoModule.forRoot(config),
       BlockUIModule.forRoot(),
 

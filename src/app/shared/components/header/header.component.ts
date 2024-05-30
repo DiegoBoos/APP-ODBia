@@ -4,12 +4,14 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
+
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+
   ],
   templateUrl: './header.component.html',
   styles: `
@@ -19,11 +21,17 @@ import { initFlowbite } from 'flowbite';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+
 export class HeaderComponent implements OnInit { 
   private authService = inject(AuthService);
 
   public isOptAuth = signal(true);
-  public currentUser = computed(() => this.authService.currentUser());
+  public currentUser = computed(() => {
+    
+    return this.authService.currentUser()
+ 
+  });
 
   constructor() {
     // // effect(() => {

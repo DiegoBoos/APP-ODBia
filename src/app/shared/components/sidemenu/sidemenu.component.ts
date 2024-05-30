@@ -52,8 +52,6 @@ export class SidemenuComponent implements OnInit {
     //   .filter((route) => !route.path?.includes(':'));
     
     constructor() {
-    console.log(routes);
-    
     // const dashboardRoutes = routes
     // .map( route => route.children ?? [] )
     // .flat()

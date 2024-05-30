@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,8 @@ import { CheckTokenResponse } from '../interfaces/check-token.response';
 import Swal from 'sweetalert2';
 import { environment } from '@environment/environment';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Injectable({
