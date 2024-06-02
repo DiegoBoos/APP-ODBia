@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^18.0.1",
     "@angular/router": "^18.0.1",
     "flowbite": "^2.3.0",
+    "jwt-decode": "^4.0.0",
     "ng-block-ui": "^4.0.1",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.8",

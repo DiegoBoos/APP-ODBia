@@ -75,7 +75,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        title: 'Inicio',
+        title: 'Home',
         loadComponent: () =>
           import('./business/dashboard/dashboard.component'),
         data: {
@@ -83,6 +83,13 @@ export const routes: Routes = [
           title: 'Dashboard',
           description: 'Tablero',
         },
+      },
+      {
+        path: 'user-profile',
+        title: 'Your profile',
+        loadComponent: () =>
+          import('./business/user-profile/user-profile.component'),
+       
       },
       // {
       //   path: 'usage',

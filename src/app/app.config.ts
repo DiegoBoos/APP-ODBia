@@ -6,9 +6,9 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS,provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
-import { InterceptorService } from './interceptors/interceptors.service';
+import { authenticationInterceptor } from './interceptors/interceptors.service';
 
 import { environment } from '@environment/environment';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
@@ -24,10 +24,13 @@ export const appConfig: ApplicationConfig = {
       })
     ),
 
-    provideHttpClient(withFetch()),
-
+    
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authenticationInterceptor])
+    ),
+    
     importProvidersFrom(
-      // SocketIoModule.forRoot(config),
       BlockUIModule.forRoot(),
 
     ),
@@ -52,11 +55,11 @@ export const appConfig: ApplicationConfig = {
         }
       } as SocialAuthServiceConfig,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true,
+    // },
   ],
   
 };

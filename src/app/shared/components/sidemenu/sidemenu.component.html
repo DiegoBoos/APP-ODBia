@@ -1,16 +1,5 @@
-<aside class="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-16 ml-6  w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
-  <!-- <div class="relative border-b border-white/20">
-    <a class="flex items-center gap-4 py-6 px-8" href="#/">
-      <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">Material Tailwind Dashboard</h6>
-    </a>
-    <button class="middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden" type="button">
-      <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true" class="h-5 w-5 text-white">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </span>
-    </button>
-  </div> -->
+<!-- <aside class="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-16 ml-6  w-72 rounded-xl transition-transform duration-300 xl:translate-x-0"> -->
+<aside class="fixed inset-0 z-50 my-20 ml-6 bg-blue-600 dark:bg-gray-800  w-72 rounded-xl">
   <div class="m-4">
     @for (route of routes; track route.path) {
       <app-sidebar-menu-item
@@ -19,108 +8,6 @@
         [title]="route.data!['title']"
         [path]="route.path!"
       />
-
     }
   </div>
 </aside>
-<!-- <div
-  id="menu"
-  class="bg-gray-800 dark:bg-gray-900 min-h-screen z-10 text-slate-300 dark:text-slate-200 w-64 left-0 h-screen overflow-y-auto"
->
-  <div id="logo" class="my-4 px-6">
-    <h1 class="text-lg md:text-xl font-bold text-white dark:text-white">
-      <span class="text-green-400 dark:text-green-500">ODBIA</span>
-    </h1>
-    <p class="text-slate-400 dark:text-slate-500 text-xs">
-      Última Actualización
-    </p>
-    <p class="text-slate-400 dark:text-slate-500 text-xs">25 abr 2024</p>
-  </div>
-
-  <div id="profile" class="px-6 py-4">
-    @if (currentUser()) {
-    <p class="text-slate-400 dark:text-slate-500">Usuario:</p>
-    <div class="inline-flex space-x-2 items-center">
-      {{ currentUser()!.fullName }}
-    </div>
-    }
-  </div>
-
-  <nav id="nav" class="w-full px-6">
-
-    @for (item of menuItems; track $index) {
-    <a
-      [routerLink]="item.path"
-      routerLinkActive="bg-green-700 dark:bg-green-800"
-      class="w-full px-4 inline-flex space-x-2 items-center border-b border-gray-700 dark:border-gray-600 py-2 hover:bg-green-600 dark:hover:bg-green-700 transition ease-linear duration-150"
-    >
-      <span class="text-lg font-bold leading-5 text-white dark:text-white">{{
-        item.title
-      }}</span>
-    </a>
-    }
-    <div
-      (click)="logout()"
-      role="button"
-      tabindex="0"
-      class="mt-4 flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-green-700 dark:hover:bg-green-800 hover:text-white dark:hover:text-white focus:bg-green-700 dark:focus:bg-green-800 focus:text-white dark:focus:text-white active:bg-green-700 dark:active:bg-green-800 active:text-white dark:active:text-white outline-none"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden="true"
-        class="h-5 w-5 mr-2"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-      Salir
-    </div>
-
-    <button
-      id="theme-toggle"
-      type="button"
-      data-tooltip-target="tooltip-light"
-      data-tooltip-style="light"
-      data-tooltip-placement="right"
-      class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
-    >
-      <svg
-        id="theme-toggle-dark-icon"
-        class="hidden w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-        ></path>
-      </svg>
-      <svg
-        id="theme-toggle-light-icon"
-        class="hidden w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-    </button>
-    <div
-      id="tooltip-light"
-      role="tooltip"
-      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip"
-    >
-      Modo de Pantalla
-      <div class="tooltip-arrow" data-popper-arrow></div>
-    </div>
-  </nav>
-</div> -->

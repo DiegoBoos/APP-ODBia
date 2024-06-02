@@ -36,7 +36,7 @@ export class AppComponent {
         case AuthStatus.authenticated: 
         case AuthStatus.inLogin:
 
-          this.router.navigateByUrl('app');
+          this.router.navigateByUrl('/app');
           
           return;
           

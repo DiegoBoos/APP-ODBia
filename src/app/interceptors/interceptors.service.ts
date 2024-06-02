@@ -1,44 +1,41 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { inject } from '@angular/core';
+import {
+  HttpRequest,
+  HttpErrorResponse,
+  HttpInterceptorFn,
+  HttpHandlerFn,
+} from '@angular/common/http';
+import { catchError, tap, throwError } from 'rxjs';
 import { AuthService } from '../core/auth/services/auth.service';
 import { ErrorMagement } from '@shared/helpers/error-management.helper';
 
 
-@Injectable({ providedIn: 'root' })
-export class InterceptorService implements HttpInterceptor {
-  private authService = inject(AuthService);
+export const authenticationInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+) => {
+  const authService = inject(AuthService);
+  const token = localStorage.getItem('token-app-odb') || '';
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token-app-odb') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  const modifiedReq = req.clone({
+    headers: req.headers.set('Authorization', `Bearer ${token}`),
+  });
 
-    const reqClone = req.clone({
-      headers,
-    });
+  return next(modifiedReq).pipe(
+    tap({
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          authService.logout();
+        }
+      }
+    }),
+    catchError(manageError)
+  )
+};
 
-    return next.handle(reqClone).pipe(
-      tap({
-        error: (error: HttpErrorResponse) => {
-          if (error.status === 401) {
-            this.logout();
-          }
-        },
-      }),
-      catchError(this.manegeError)
-    );
-  }
-
-  manegeError(err: HttpErrorResponse) {
-    console.warn(err);
-    ErrorMagement(err);
-    return throwError(() => err);
-  }
-
-  logout() {
-    this.authService.logout();
-  }
+const manageError = (err: HttpErrorResponse) => {
+  console.warn(err);
+  ErrorMagement(err);
+  
+  return throwError(() => err);
 }

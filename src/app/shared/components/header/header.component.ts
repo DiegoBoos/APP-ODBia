@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } 
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { initFlowbite } from 'flowbite';
+import { ThemeService } from '@shared/services/theme.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ import { initFlowbite } from 'flowbite';
 
 export class HeaderComponent implements OnInit { 
   private authService = inject(AuthService);
+  public themeService = inject(ThemeService);
 
   public isOptAuth = signal(true);
   public currentUser = computed(() => {
@@ -33,28 +35,12 @@ export class HeaderComponent implements OnInit {
  
   });
 
-  constructor() {
-    // // effect(() => {
-    //   console.log(this.authService.authStatus());
-      
-    //   switch (this.authService.authStatus()) {
-    //     case AuthStatus.checking:
-    //       return;
-
-    //     case AuthStatus.authenticated || AuthStatus.inLogin:
-    //       this.router.navigateByUrl('app');
-          
-    //       // const route = localStorage.getItem('route') || undefined;
-
-    //       // if (!route) this.router.navigateByUrl('/app');
-    //       // else this.router.navigateByUrl(route);
-
-    //       return;
-    //   }
-    // // })
-  }
   ngOnInit(): void {
     initFlowbite();
+  }
+
+  changeTheme() {
+    this.themeService.updateTheme(this.themeService.isDarkMode() ? 'light' : 'dark')
   }
 
   logOut() {
