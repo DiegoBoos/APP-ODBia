@@ -18,6 +18,7 @@ import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { UsageService } from '@services/usage.service';
 
 
 @Component({
@@ -35,13 +36,16 @@ import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 export default class LoginComponent implements OnInit {
   user: SocialUser | null = null;
   loggedIn: boolean | null = null;
+  private usageService = inject(UsageService);
 
   ngOnInit(): void {
 
     this.socialAuthService.authState.subscribe((user) => {
 
       if (user) {
-        this.authService.socialRegister(user.name, user.email).subscribe();
+        this.authService.socialRegister(user.name, user.email).subscribe(()=>{
+          this.usageService.getUsageStatistics().subscribe();
+        });
         
         this.user = user;
         this.loggedIn = (user != null);
@@ -78,6 +82,7 @@ export default class LoginComponent implements OnInit {
     this.isLoading.set(true);
     this.authService.login(email, password).subscribe({
       next: () => {
+        this.usageService.getUsageStatistics().subscribe();
         this.router.navigateByUrl('app');
       },
       error: (message) => {

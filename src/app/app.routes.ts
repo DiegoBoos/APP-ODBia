@@ -79,9 +79,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./business/dashboard/dashboard.component'),
         data: {
-          icon: 'fa-solid fa-spell-check',
+          icon: 'fa-solid fa-house',
           title: 'Dashboard',
-          description: 'Tablero',
+          description: 'Dashboard',
+        },
+      },
+      {
+        path: 'billing',
+        title: 'Home',
+        loadComponent: () =>
+          import('./business/billing/billing.component'),
+        data: {
+          icon: 'fa-solid fa-receipt',
+          title: 'Billing',
+          description: 'Billing',
         },
       },
       {

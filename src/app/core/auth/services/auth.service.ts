@@ -12,8 +12,6 @@ import { environment } from '@environment/environment';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @Injectable({
   providedIn: 'root',
 })
@@ -202,6 +200,9 @@ export class AuthService {
     this.#currentUser.set(null);
     this.#authStatus.set(AuthStatus.notAuthenticated);
     this.router.navigateByUrl('');
+
+    // Reset signals
+    // this.usageService.resetState();
     // this.websocketService.emit(EventSocket.LOGOUT, token);
   }
 

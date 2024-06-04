@@ -29,7 +29,7 @@ export class ValidatorsService {
         case 'max':
           return 'Valor NO Válido ';
         case 'required':
-          return 'Requerido *';
+          return 'Required *';
         case 'notValidDate':
           return 'Fecha No Válida';
         case 'notValidPay':

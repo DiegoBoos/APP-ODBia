@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { ThemeService } from '@shared/services/theme.service';
+import { UsageService } from '@services/usage.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ import { ThemeService } from '@shared/services/theme.service';
 export class HeaderComponent implements OnInit { 
   private authService = inject(AuthService);
   public themeService = inject(ThemeService);
+  private usageService = inject(UsageService);
 
   public isOptAuth = signal(true);
   public currentUser = computed(() => {
@@ -44,6 +46,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
+    this.usageService.resetState();
     this.authService.logout();
   }
 }

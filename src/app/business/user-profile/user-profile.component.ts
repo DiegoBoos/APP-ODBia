@@ -49,6 +49,7 @@ export default class UserProfileComponent implements OnInit {
           this.form.controls['id'].setValue(this.user()?.id);
           this.form.controls['fullName'].setValue(this.user()?.tenant.fullName);
           this.form.controls['email'].setValue(this.user()?.email);
+          // this.form.controls['email'].disable();
         });
       }
     }
@@ -106,7 +107,7 @@ export default class UserProfileComponent implements OnInit {
     this.userProfileService.updateUser(user).subscribe((resp: any) => {
 
       if (resp) {
-        Swal.fire('Transaction ok.','Profile updated.','success');
+        Swal.fire('Transaction ok.','Profile updated successful.','success');
       }
       
     });

@@ -5,6 +5,8 @@
     "paths": {
       "@shared/*": ["./src/app/shared/*"],
       "@utils/*": ["./src/app/utils/*"],
+      "@services/*": ["./src/app/core/services/*"],
+      "@interfaces/*": ["./src/app/core/interfaces/*"],
       "@environment/*": ["./src/environments/*"],
       "@guards/*": ["./src/app/guards/*"],
     },

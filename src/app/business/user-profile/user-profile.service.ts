@@ -21,8 +21,7 @@ export class UserProfileService {
 
   updateUser(user: User) {
     const url = `${this.baseUrl}/user/${user.id}`;
-    console.log(url);
-    
+
     const requestObservable = this.http.patch(`${url}`, user);
     return requestObservable.pipe(
       map((data: any) => {
